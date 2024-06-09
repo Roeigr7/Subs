@@ -1,5 +1,6 @@
 import * as React from "react";
-import { Field, Form } from "react-final-form";
+import { Field, Form, FormSpy } from "react-final-form";
+
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Grid from "@mui/material/Grid";
@@ -54,7 +55,7 @@ function SignUp() {
           subscription={{ submitting: true }}
           validate={validate}
         >
-          {({ handleSubmit: handleSubmit2 }) => (
+          {({ handleSubmit: handleSubmit2, submitting }) => (
             <Box
               component="form"
               onSubmit={handleSubmit2}
@@ -66,7 +67,7 @@ function SignUp() {
                   <Field
                     autoFocus
                     component={RFTextField}
-                    disabled={sent}
+                    disabled={submitting || sent}
                     autoComplete="given-name"
                     fullWidth
                     label="First name"
@@ -77,7 +78,7 @@ function SignUp() {
                 <Grid item xs={12} sm={6}>
                   <Field
                     component={RFTextField}
-                    disabled={sent}
+                    disabled={submitting || sent}
                     autoComplete="family-name"
                     fullWidth
                     label="Last name"
@@ -89,7 +90,7 @@ function SignUp() {
               <Field
                 autoComplete="email"
                 component={RFTextField}
-                disabled={sent}
+                disabled={submitting || sent}
                 fullWidth
                 label="Email"
                 margin="normal"
@@ -99,7 +100,7 @@ function SignUp() {
               <Field
                 fullWidth
                 component={RFTextField}
-                disabled={sent}
+                disabled={submitting || sent}
                 required
                 name="password"
                 autoComplete="new-password"
@@ -107,13 +108,14 @@ function SignUp() {
                 type="password"
                 margin="normal"
               />
+
               <FormButton
                 sx={{ mt: 3, mb: 2 }}
-                disabled={sent}
+                disabled={submitting || sent}
                 color="secondary"
                 fullWidth
               >
-                {sent ? "In progress…" : "Sign Up"}
+                {submitting || sent ? "In progress…" : "Sign Up"}
               </FormButton>
             </Box>
           )}
