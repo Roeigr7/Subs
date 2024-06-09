@@ -6,7 +6,7 @@ import Box from "@mui/material/Box";
 import FormButton from "../modules/form/FormButton";
 import RFTextField from "../modules/form/RFTextField";
 import { email, required } from "../modules/form/validation";
-import AppAppBar from "../modules/views/AppAppBar";
+import AppAppBar from "../modules/views/ResponsiveAppBar";
 import AppFooter from "../modules/views/AppFooter";
 import AppForm from "../modules/views/AppForm";
 

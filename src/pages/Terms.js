@@ -3,7 +3,7 @@ import * as React from "react";
 import { Typography } from "@mui/material";
 import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
-import AppAppBar from "../modules/views/AppAppBar";
+import AppAppBar from "../modules/views/ResponsiveAppBar";
 import AppFooter from "../modules/views/AppFooter";
 
 function Terms() {

@@ -1,6 +1,6 @@
 import * as React from "react";
+import ResponsiveAppBar from "modules/views/ResponsiveAppBar";
 
-import AppAppBar from "./modules/views/AppAppBar";
 import AppFooter from "./modules/views/AppFooter";
 import ProductCategories from "./modules/views/ProductCategories";
 import ProductCTA from "./modules/views/ProductCTA";
@@ -12,7 +12,7 @@ import ProductValues from "./modules/views/ProductValues";
 function Home() {
   return (
     <React.Fragment>
-      <AppAppBar />
+      <ResponsiveAppBar />
       <ProductHero />
       <ProductValues />
       <ProductCategories />

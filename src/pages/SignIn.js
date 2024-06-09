@@ -1,28 +1,34 @@
 import * as React from "react";
-import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
+import { useAuth } from "contexts/authContext";
+import { signInWithPopup } from "firebase/auth";
+import { useNavigate } from "react-router-dom";
 
+import { LoadingButton } from "@mui/lab";
 import { Button, Link, TextField, Typography } from "@mui/material";
 import { auth, googleProvider } from "../firebase";
-import AppAppBar from "../modules/views/AppAppBar";
 import AppFooter from "../modules/views/AppFooter";
 import AppForm from "../modules/views/AppForm";
+import AppAppBar from "../modules/views/ResponsiveAppBar";
 
 function SignIn() {
+  const { login } = useAuth();
+  const navigate = useNavigate();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-
-  const handleSubmit = () => {
-    signInWithEmailAndPassword(auth, "email", "password")
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-
-        // ...
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-      });
+  const [error, setError] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      setLoading(true);
+      setError("");
+      await login(email, password);
+      navigate("/");
+    } catch (err) {
+      console.error("err", err);
+      setError("Failed to log in");
+    }
+    setLoading(false);
   };
 
   const signinWithGoogle = async () => {
@@ -70,9 +76,14 @@ function SignIn() {
             }}
           />
 
-          <Button type="submit" color="primary" className="form__custom-button">
+          <LoadingButton
+            loading={loading}
+            type="submit"
+            color="primary"
+            className="form__custom-button"
+          >
             Log in
-          </Button>
+          </LoadingButton>
           <Button
             onClick={signinWithGoogle}
             type="button"

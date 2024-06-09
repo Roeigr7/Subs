@@ -1,25 +1,30 @@
 import * as React from "react";
-import { createUserWithEmailAndPassword } from "firebase/auth";
+import { useAuth } from "contexts/authContext";
 
-import { Button, TextField, Typography } from "@mui/material";
+import LoadingButton from "@mui/lab/LoadingButton";
+import { TextField, Typography } from "@mui/material";
 import Link from "@mui/material/Link";
-import { auth } from "../firebase";
-import AppAppBar from "../modules/views/AppAppBar";
 import AppFooter from "../modules/views/AppFooter";
 import AppForm from "../modules/views/AppForm";
+import AppAppBar from "../modules/views/ResponsiveAppBar";
 
 function SignUp() {
+  const { signup } = useAuth();
   const [email, setEmail] = React.useState("");
   const [password, setPassword] = React.useState("");
-
+  const [error, setError] = React.useState("");
+  const [loading, setLoading] = React.useState(false);
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
-      console.log("eplplpl", auth, email, password);
+      setLoading(true);
+      setError("");
+      await signup(email, password);
     } catch (err) {
-      console.log("err", err);
+      console.error("err", err);
+      setError("Failed to create an account");
     }
+    setLoading(false);
   };
 
   return (
@@ -58,13 +63,18 @@ function SignUp() {
             }}
           />
 
-          <Button type="submit" color="primary" className="form__custom-button">
+          <LoadingButton
+            loading={loading}
+            type="submit"
+            color="primary"
+            className="form__custom-button"
+          >
             sign up
-          </Button>
+          </LoadingButton>
         </form>
-
+        <Typography align="center">{error}</Typography>
         <Typography align="center">
-          <Link underline="always" href="/forgot-password">
+          <Link underline="always" href="/faorgot-password">
             Forgot password?
           </Link>
         </Typography>
