@@ -1,8 +1,12 @@
 import * as React from "react";
-import Box from "@mui/material/Box";
-import Link from "@mui/material/Link";
+import { signOut } from "firebase/auth";
+
 import AppBar from "../components/AppBar";
 import Toolbar from "../components/Toolbar";
+import { Button } from "@mui/material";
+import Box from "@mui/material/Box";
+import Link from "@mui/material/Link";
+import { auth } from "../../firebase";
 
 const rightLink = {
   fontSize: 16,
@@ -11,6 +15,14 @@ const rightLink = {
 };
 
 function AppAppBar() {
+  const handleLogout = () => {
+    console.log("logout", auth.currentUser);
+    try {
+      signOut(auth);
+    } catch (e) {
+      console.error("err", e);
+    }
+  };
   return (
     <div>
       <AppBar position="fixed">
@@ -43,6 +55,9 @@ function AppAppBar() {
             >
               {"Sign Up"}
             </Link>
+            <Button variant="contained" color="error" onClick={handleLogout}>
+              logout
+            </Button>
           </Box>
         </Toolbar>
       </AppBar>

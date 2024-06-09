@@ -1,39 +1,25 @@
 import * as React from "react";
-import { Field, Form, FormSpy } from "react-final-form";
+import { createUserWithEmailAndPassword } from "firebase/auth";
 
-import { Typography } from "@mui/material";
-import Box from "@mui/material/Box";
-import Grid from "@mui/material/Grid";
+import { Button, TextField, Typography } from "@mui/material";
 import Link from "@mui/material/Link";
-import FormButton from "../modules/form/FormButton";
-import RFTextField from "../modules/form/RFTextField";
-import { email, required } from "../modules/form/validation";
+import { auth } from "../firebase";
 import AppAppBar from "../modules/views/AppAppBar";
 import AppFooter from "../modules/views/AppFooter";
 import AppForm from "../modules/views/AppForm";
-import withRoot from "../modules/withRoot";
 
 function SignUp() {
-  const [sent, setSent] = React.useState(false);
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
 
-  const validate = (values) => {
-    const errors = required(
-      ["firstName", "lastName", "email", "password"],
-      values
-    );
-
-    if (!errors.email) {
-      const emailError = email(values.email);
-      if (emailError) {
-        errors.email = emailError;
-      }
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      console.log("eplplpl", auth, email, password);
+    } catch (err) {
+      console.log("err", err);
     }
-
-    return errors;
-  };
-
-  const handleSubmit = () => {
-    setSent(true);
   };
 
   return (
@@ -42,88 +28,50 @@ function SignUp() {
       <AppForm>
         <React.Fragment>
           <Typography variant="h3" gutterBottom align="center">
-            Sign Up
+            Sign UP
           </Typography>
           <Typography variant="body2" align="center">
-            <Link href="/sign-in" underline="always">
-              Already have an account?
+            {"Not a member yet? "}
+            <Link href="/sign-up" align="center" underline="always">
+              Sign Up here
             </Link>
           </Typography>
         </React.Fragment>
-        <Form
-          onSubmit={handleSubmit}
-          subscription={{ submitting: true }}
-          validate={validate}
-        >
-          {({ handleSubmit: handleSubmit2, submitting }) => (
-            <Box
-              component="form"
-              onSubmit={handleSubmit2}
-              noValidate
-              sx={{ mt: 6 }}
-            >
-              <Grid container spacing={2}>
-                <Grid item xs={12} sm={6}>
-                  <Field
-                    autoFocus
-                    component={RFTextField}
-                    disabled={submitting || sent}
-                    autoComplete="given-name"
-                    fullWidth
-                    label="First name"
-                    name="firstName"
-                    required
-                  />
-                </Grid>
-                <Grid item xs={12} sm={6}>
-                  <Field
-                    component={RFTextField}
-                    disabled={submitting || sent}
-                    autoComplete="family-name"
-                    fullWidth
-                    label="Last name"
-                    name="lastName"
-                    required
-                  />
-                </Grid>
-              </Grid>
-              <Field
-                autoComplete="email"
-                component={RFTextField}
-                disabled={submitting || sent}
-                fullWidth
-                label="Email"
-                margin="normal"
-                name="email"
-                required
-              />
-              <Field
-                fullWidth
-                component={RFTextField}
-                disabled={submitting || sent}
-                required
-                name="password"
-                autoComplete="new-password"
-                label="Password"
-                type="password"
-                margin="normal"
-              />
 
-              <FormButton
-                sx={{ mt: 3, mb: 2 }}
-                disabled={submitting || sent}
-                color="secondary"
-                fullWidth
-              >
-                {submitting || sent ? "In progress…" : "Sign Up"}
-              </FormButton>
-            </Box>
-          )}
-        </Form>
+        <form className="form" onSubmit={handleSubmit}>
+          <TextField
+            fullWidth
+            id="outlined-controlled"
+            label="email"
+            value={email}
+            onChange={(event) => {
+              setEmail(event.target.value);
+            }}
+          />
+          <TextField
+            fullWidth
+            id="outlined-controlled"
+            label="pass"
+            value={password}
+            onChange={(event) => {
+              setPassword(event.target.value);
+            }}
+          />
+
+          <Button type="submit" color="primary" className="form__custom-button">
+            sign up
+          </Button>
+        </form>
+
+        <Typography align="center">
+          <Link underline="always" href="/forgot-password">
+            Forgot password?
+          </Link>
+        </Typography>
       </AppForm>
       <AppFooter />
     </React.Fragment>
   );
 }
 
-export default withRoot(SignUp);
+export default SignUp;

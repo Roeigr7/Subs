@@ -5,7 +5,6 @@ import Box from "@mui/material/Box";
 import Container from "@mui/material/Container";
 import AppAppBar from "../modules/views/AppAppBar";
 import AppFooter from "../modules/views/AppFooter";
-import withRoot from "../modules/withRoot";
 
 function Terms() {
   return (
@@ -24,4 +23,4 @@ function Terms() {
   );
 }
 
-export default withRoot(Terms);
+export default Terms;

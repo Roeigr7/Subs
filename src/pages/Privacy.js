@@ -3,7 +3,6 @@ import AppAppBar from "modules/views/AppAppBar";
 
 import { Box, Container, Typography } from "@mui/material";
 import AppFooter from "../modules/views/AppFooter";
-import withRoot from "../modules/withRoot";
 
 function Privacy() {
   return (
@@ -22,4 +21,4 @@ function Privacy() {
   );
 }
 
-export default withRoot(Privacy);
+export default Privacy;

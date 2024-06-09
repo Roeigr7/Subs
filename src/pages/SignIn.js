@@ -1,45 +1,37 @@
 import * as React from "react";
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { Field, Form } from "react-final-form";
+import { signInWithEmailAndPassword, signInWithPopup } from "firebase/auth";
 
-import { Box, Link, Typography } from "@mui/material";
-import FormButton from "../modules/form/FormButton";
-import RFTextField from "../modules/form/RFTextField";
-import { email, required } from "../modules/form/validation";
+import { Button, Link, TextField, Typography } from "@mui/material";
+import { auth, googleProvider } from "../firebase";
 import AppAppBar from "../modules/views/AppAppBar";
 import AppFooter from "../modules/views/AppFooter";
 import AppForm from "../modules/views/AppForm";
-import withRoot from "../modules/withRoot";
 
 function SignIn() {
-  const [sent, setSent] = React.useState(false);
-
-  const validate = (values) => {
-    const errors = required(["email", "password"], values);
-
-    if (!errors.email) {
-      const emailError = email(values.email);
-      if (emailError) {
-        errors.email = emailError;
-      }
-    }
-
-    return errors;
-  };
+  const [email, setEmail] = React.useState("");
+  const [password, setPassword] = React.useState("");
 
   const handleSubmit = () => {
-    const auth = getAuth();
-    // @ts-ignore
     signInWithEmailAndPassword(auth, "email", "password")
       .then((userCredential) => {
         // Signed in
         const user = userCredential.user;
+
         // ...
       })
       .catch((error) => {
         const errorCode = error.code;
         const errorMessage = error.message;
       });
+  };
+
+  const signinWithGoogle = async () => {
+    try {
+      console.log("login google", auth.currentUser);
+      await signInWithPopup(auth, googleProvider);
+    } catch (err) {
+      console.error("err", err);
+    }
   };
 
   return (
@@ -57,54 +49,40 @@ function SignIn() {
             </Link>
           </Typography>
         </React.Fragment>
-        <Form
-          onSubmit={handleSubmit}
-          subscription={{ submitting: true }}
-          validate={validate}
-        >
-          {({ handleSubmit: handleSubmit2 }) => (
-            <Box
-              component="form"
-              onSubmit={handleSubmit2}
-              noValidate
-              sx={{ mt: 6 }}
-            >
-              <Field
-                autoComplete="email"
-                autoFocus
-                component={RFTextField}
-                disabled={sent}
-                fullWidth
-                label="Email"
-                margin="normal"
-                name="email"
-                required
-                size="large"
-              />
-              <Field
-                fullWidth
-                size="large"
-                component={RFTextField}
-                disabled={sent}
-                required
-                name="password"
-                autoComplete="current-password"
-                label="Password"
-                type="password"
-                margin="normal"
-              />
-              <FormButton
-                sx={{ mt: 3, mb: 2 }}
-                disabled={sent}
-                size="large"
-                color="secondary"
-                fullWidth
-              >
-                {sent ? "In progress…" : "Sign In"}
-              </FormButton>
-            </Box>
-          )}
-        </Form>
+
+        <form className="form" onSubmit={handleSubmit}>
+          <TextField
+            fullWidth
+            id="outlined-controlled"
+            label="email"
+            value={email}
+            onChange={(event) => {
+              setEmail(event.target.value);
+            }}
+          />
+          <TextField
+            fullWidth
+            id="outlined-controlled"
+            label="pass"
+            value={password}
+            onChange={(event) => {
+              setPassword(event.target.value);
+            }}
+          />
+
+          <Button type="submit" color="primary" className="form__custom-button">
+            Log in
+          </Button>
+          <Button
+            onClick={signinWithGoogle}
+            type="button"
+            color="primary"
+            className="form__custom-button"
+          >
+            Google login
+          </Button>
+        </form>
+
         <Typography align="center">
           <Link underline="always" href="/forgot-password">
             Forgot password?
@@ -116,4 +94,4 @@ function SignIn() {
   );
 }
 
-export default withRoot(SignIn);
+export default SignIn;
