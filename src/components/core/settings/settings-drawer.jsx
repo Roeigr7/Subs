@@ -1,5 +1,3 @@
-'use client';
-
 import * as React from 'react';
 import Badge from '@mui/material/Badge';
 import Drawer from '@mui/material/Drawer';
@@ -14,6 +12,8 @@ import { OptionsDirection } from './options-direction';
 import { OptionsLayout } from './options-layout';
 import { OptionsNavColor } from './options-nav-color';
 import { OptionsPrimaryColor } from './options-primary-color';
+
+('use client');
 
 export function SettingsDrawer({ canReset = true, onClose, onUpdate, onReset, open, values = {} }) {
   const handleChange = React.useCallback(

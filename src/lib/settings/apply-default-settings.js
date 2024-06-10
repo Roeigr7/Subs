@@ -4,7 +4,7 @@ export function applyDefaultSettings(settings) {
   return {
     colorScheme: configuration.site.colorScheme,
     primaryColor: configuration.site.primaryColor,
-    direction: 'ltr',
+    direction: 'rtl',
     navColor: 'evident',
     layout: 'vertical',
     ...settings,

@@ -26,10 +26,7 @@ import { z as zod } from 'zod';
 
 ('use client');
 
-const oAuthProviders = [
-  { id: 'google', name: 'Google', logo: '/assets/logo-google.svg' },
-  { id: 'discord', name: 'Discord', logo: '/assets/logo-discord.svg' },
-];
+const oAuthProviders = [{ id: 'google', name: 'Google', logo: '/assets/logo-google.svg' }];
 
 const schema = zod.object({
   email: zod.string().min(1, { message: 'Email is required' }).email(),
