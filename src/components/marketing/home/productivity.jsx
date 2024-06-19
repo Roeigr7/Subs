@@ -183,34 +183,6 @@ export function Productivity() {
                 </Box>
               </Box>
             </Grid>
-
-            <Grid md={4} xs={12}>
-              <Box
-                sx={{
-                  bgcolor: 'var(--mui-palette-background-level1)',
-                  border: '1px solid var(--mui-palette-divider)',
-                  borderRadius: '20px',
-                  overflow: 'hidden',
-                }}
-              >
-                <Stack spacing={2} sx={{ p: 4 }}>
-                  <div>
-                    <Chip color="primary" icon={<PaletteIcon />} label="Themeable" variant="soft" />
-                  </div>
-                  <Typography variant="h5">Easy to customize</Typography>
-                  <Typography color="text.secondary" variant="body2">
-                    Tweak the theme in your editor for global style changes.
-                  </Typography>
-                </Stack>
-                <Box sx={{ height: '300px', position: 'relative' }}>
-                  <Box
-                    component="img"
-                    src="/assets/home-feature-3.svg"
-                    sx={{ bottom: '-150px', height: '450px', right: 0, position: 'absolute', width: 'auto' }}
-                  />
-                </Box>
-              </Box>
-            </Grid>
             <Grid md={4} xs={12}>
               <Box
                 sx={{
@@ -222,15 +194,11 @@ export function Productivity() {
               >
                 <Stack spacing={2} sx={{ p: 4 }}>
                   <Box>
-                    <Typography variant="h4" p={0} m={0} component={'h5'}>
-                      מסלול מתקדם
-                    </Typography>
-                    <Typography color="text.secondary" variant="body2">
-                      לעסקים קטנים ולקוחות פרטיים
-                    </Typography>
+                    <Typography variant="h4" p={0} m={0} component={'h5'}>עורך מתחיל</Typography>
+                    <Typography color="text.secondary" variant="body2"></Typography>
                   </Box>
                   <Typography color="primary" variant="h3" fontWeight={800}>
-                    20$
+                    30$
                     <Typography component={'span'} color="text.secondary" variant="body2">
                       /
                     </Typography>
@@ -251,21 +219,46 @@ export function Productivity() {
                 }}
               >
                 <Stack spacing={2} sx={{ p: 4 }}>
-                  <div>
-                    <Chip color="primary" icon={<PaletteIcon />} label="Themeable" variant="soft" />
-                  </div>
-                  <Typography variant="h5">Easy to customize</Typography>
-                  <Typography color="text.secondary" variant="body2">
-                    Tweak the theme in your editor for global style changes.
+                  <Box>
+                    <Typography variant="h4" p={0} m={0} component={'h5'}>פרי לנסר מקצועי</Typography>
+                    <Typography color="text.secondary" variant="body2"></Typography>
+                  </Box>
+                  <Typography color="primary" variant="h3" fontWeight={800}>
+                    50$
+                    <Typography component={'span'} color="text.secondary" variant="body2">
+                      /
+                    </Typography>
+                    <Typography component={'span'} color="text.secondary" variant="body2">
+                      חודש
+                    </Typography>
                   </Typography>
                 </Stack>
-                <Box sx={{ height: '300px', position: 'relative' }}>
-                  <Box
-                    component="img"
-                    src="/assets/home-feature-3.svg"
-                    sx={{ bottom: '-150px', height: '450px', right: 0, position: 'absolute', width: 'auto' }}
-                  />
-                </Box>
+              </Box>
+            </Grid>
+            <Grid md={4} xs={12}>
+              <Box
+                sx={{
+                  bgcolor: 'var(--mui-palette-background-level1)',
+                  border: '1px solid var(--mui-palette-divider)',
+                  borderRadius: '20px',
+                  overflow: 'hidden',
+                }}
+              >
+                <Stack spacing={2} sx={{ p: 4 }}>
+                  <Box>
+                    <Typography variant="h4" p={0} m={0} component={'h5'}>מנוי עסקי</Typography>
+                    <Typography color="text.secondary" variant="body2"></Typography>
+                  </Box>
+                  <Typography color="primary" variant="h3" fontWeight={800}>
+                    170$
+                    <Typography component={'span'} color="text.secondary" variant="body2">
+                      /
+                    </Typography>
+                    <Typography component={'span'} color="text.secondary" variant="body2">
+                      חודש
+                    </Typography>
+                  </Typography>
+                </Stack>
               </Box>
             </Grid>
           </Grid>
