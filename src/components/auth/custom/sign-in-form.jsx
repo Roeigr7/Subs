@@ -26,7 +26,7 @@ import { z as zod } from 'zod';
 
 ('use client');
 
-const oAuthProviders = [{ id: 'google', name: 'Google', logo: '/assets/logo-google.svg' }];
+const oAuthProviders = [{ id: 'google', name: 'גוגל', logo: '/assets/logo-google.svg' }];
 
 const schema = zod.object({
   email: zod.string().min(1, { message: 'Email is required' }).email(),
@@ -36,7 +36,7 @@ const schema = zod.object({
 const defaultValues = { email: '', password: '' };
 
 export function SignInForm() {
-  const { login } = useAuth();
+  const { login, googleLogin } = useAuth();
   const navigate = useNavigate();
   const [showPassword, setShowPassword] = React.useState(false);
 
@@ -49,20 +49,18 @@ export function SignInForm() {
     formState: { errors },
   } = useForm({ defaultValues, resolver: zodResolver(schema) });
 
-  const onAuth = React.useCallback(async (providerId) => {
+  const handleProviderAuth = React.useCallback(async (provider) => {
     setIsPending(true);
-
-    const { error } = await authClient.signInWithOAuth({ provider: providerId });
-
-    if (error) {
+    try {
+      setIsPending(true);
+      setError('root', { type: 'server', message: '' });
+      await googleLogin();
+      navigate('/');
+    } catch (err) {
+      setError('root', { type: 'server', message: err });
       setIsPending(false);
-      toast.error(error);
       return;
     }
-
-    setIsPending(false);
-
-    // Redirect to OAuth provider
   }, []);
 
   const onSubmit = React.useCallback(
@@ -90,11 +88,11 @@ export function SignInForm() {
         </Box>
       </div>
       <Stack spacing={1}>
-        <Typography variant="h5">Sign in</Typography>
+        <Typography variant="h5">התחבר</Typography>
         <Typography color="text.secondary" variant="body2">
-          Don&apos;t have an account?{' '}
+          עוד אין לך משתמש?{' '}
           <Link component={RouterLink} href={paths.auth.custom.signUp} variant="subtitle2">
-            Sign up
+            הירשם
           </Link>
         </Typography>
       </Stack>
@@ -106,18 +104,14 @@ export function SignInForm() {
               disabled={isPending}
               endIcon={<Box alt="" component="img" height={24} src={provider.logo} width={24} />}
               key={provider.id}
-              onClick={() => {
-                onAuth(provider.id).catch(() => {
-                  // noop
-                });
-              }}
+              onClick={() => handleProviderAuth(provider.id)}
               variant="outlined"
             >
-              Continue with {provider.name}
+              המשך עם {provider.name}
             </Button>
           ))}
         </Stack>
-        <Divider>or</Divider>
+        <Divider>או</Divider>
         <Stack spacing={2}>
           <form onSubmit={handleSubmit(onSubmit)}>
             <Stack spacing={2}>
@@ -126,7 +120,7 @@ export function SignInForm() {
                 name="email"
                 render={({ field }) => (
                   <FormControl error={Boolean(errors.email)}>
-                    <InputLabel>Email address</InputLabel>
+                    <InputLabel>אימייל</InputLabel>
                     <OutlinedInput {...field} type="email" />
                     {errors.email ? <FormHelperText>{errors.email.message}</FormHelperText> : null}
                   </FormControl>
@@ -137,7 +131,7 @@ export function SignInForm() {
                 name="password"
                 render={({ field }) => (
                   <FormControl error={Boolean(errors.password)}>
-                    <InputLabel>Password</InputLabel>
+                    <InputLabel>סיסמא</InputLabel>
                     <OutlinedInput
                       {...field}
                       endAdornment={
@@ -168,13 +162,13 @@ export function SignInForm() {
               />
               {errors.root ? <Alert color="error">{errors.root.message}</Alert> : null}
               <Button disabled={isPending} type="submit" variant="contained">
-                Sign in
+                התחבר
               </Button>
             </Stack>
           </form>
           <div>
             <Link component={RouterLink} href={paths.auth.custom.resetPassword} variant="subtitle2">
-              Forgot password?
+              שכחת סיסמא?
             </Link>
           </div>
         </Stack>

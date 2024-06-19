@@ -1,5 +1,6 @@
 // @ts-nocheck
 import * as React from 'react';
+// @ts-nocheck
 import { zodResolver } from '@hookform/resolvers/zod';
 import { LoadingButton } from '@mui/lab';
 import Alert from '@mui/material/Alert';
@@ -17,28 +18,27 @@ import Stack from '@mui/material/Stack';
 import Typography from '@mui/material/Typography';
 import { RouterLink } from 'components/core/link';
 import { DynamicLogo } from 'components/core/logo';
-import { toast } from 'components/core/toaster';
 import { useAuth } from 'contexts/auth/custom/user-context';
-import { authClient } from 'lib/auth/custom/client';
 import { paths } from 'paths';
 import { Controller, useForm } from 'react-hook-form';
+import { useNavigate } from 'react-router-dom';
 import { z as zod } from 'zod';
 
 ('use client');
 
-const oAuthProviders = [{ id: 'google', name: 'Google', logo: '/assets/logo-google.svg' }];
+const oAuthProviders = [{ id: 'google', name: 'גוגל', logo: '/assets/logo-google.svg' }];
 
 const schema = zod.object({
-  email: zod.string().min(1, { message: 'Email is required' }).email(),
-  password: zod.string().min(6, { message: 'Password should be at least 6 characters' }),
-  terms: zod.boolean().refine((value) => value, 'You must accept the terms and conditions'),
+  email: zod.string().min(1, { message: 'הכנס כתובת דוא"ל' }).email(),
+  password: zod.string().min(6, { message: 'סיסמא צריכה להכיל לפחות 6 תווים' }),
+  terms: zod.boolean().refine((value) => value, 'נא לאשר את התנאים'),
 });
 
 const defaultValues = { firstName: '', lastName: '', email: '', password: '', terms: false };
 
 export function SignUpForm() {
-  const { signup } = useAuth();
-
+  const { signup, googleLogin } = useAuth();
+  const navigate = useNavigate();
   const [isPending, setIsPending] = React.useState(false);
 
   const {
@@ -48,22 +48,19 @@ export function SignUpForm() {
     formState: { errors },
   } = useForm({ defaultValues, resolver: zodResolver(schema) });
 
-  const onAuth = React.useCallback(async (providerId) => {
+  const handleProviderAuth = React.useCallback(async (provider) => {
     setIsPending(true);
-
-    const { error } = await authClient.signInWithOAuth({ provider: providerId });
-
-    if (error) {
+    try {
+      setIsPending(true);
+      setError('root', { type: 'server', message: '' });
+      await googleLogin();
+      navigate('/');
+    } catch (err) {
+      setError('root', { type: 'server', message: err });
       setIsPending(false);
-      toast.error(error);
       return;
     }
-
-    setIsPending(false);
-
-    // Redirect to OAuth provider
   }, []);
-
   const onSubmit = React.useCallback(
     async (values) => {
       setIsPending(true);
@@ -95,11 +92,11 @@ export function SignUpForm() {
         </Box>
       </div>
       <Stack spacing={1}>
-        <Typography variant="h5">Sign up</Typography>
+        <Typography variant="h5">הירשם</Typography>
         <Typography color="text.secondary" variant="body2">
-          Already have an account?{' '}
+          כבר יש לך משתמש?{' '}
           <Link component={RouterLink} href={paths.auth.custom.signIn} variant="subtitle2">
-            Sign in
+            התחבר
           </Link>
         </Typography>
       </Stack>
@@ -111,18 +108,14 @@ export function SignUpForm() {
               disabled={isPending}
               endIcon={<Box alt="" component="img" height={24} src={provider.logo} width={24} />}
               key={provider.id}
-              onClick={() => {
-                onAuth(provider.id).catch(() => {
-                  // noop
-                });
-              }}
+              onClick={() => handleProviderAuth(provider.id)}
               variant="outlined"
             >
-              Continue with {provider.name}
+              המשך עם {provider.name}
             </Button>
           ))}
         </Stack>
-        <Divider>or</Divider>
+        <Divider>או</Divider>
         <form onSubmit={handleSubmit(onSubmit)}>
           <Stack spacing={2}>
             <Controller
@@ -130,7 +123,7 @@ export function SignUpForm() {
               name="email"
               render={({ field }) => (
                 <FormControl error={Boolean(errors.email)}>
-                  <InputLabel>Email address</InputLabel>
+                  <InputLabel>אימייל</InputLabel>
                   <OutlinedInput {...field} type="email" />
                   {errors.email ? <FormHelperText>{errors.email.message}</FormHelperText> : null}
                 </FormControl>
@@ -141,7 +134,7 @@ export function SignUpForm() {
               name="password"
               render={({ field }) => (
                 <FormControl error={Boolean(errors.password)}>
-                  <InputLabel>Password</InputLabel>
+                  <InputLabel>סיסמא</InputLabel>
                   <OutlinedInput {...field} type="password" />
                   {errors.password ? <FormHelperText>{errors.password.message}</FormHelperText> : null}
                 </FormControl>
@@ -156,7 +149,7 @@ export function SignUpForm() {
                     control={<Checkbox {...field} />}
                     label={
                       <React.Fragment>
-                        I have read the <Link>terms and conditions</Link>
+                        קראתי את <Link>התנאים</Link>
                       </React.Fragment>
                     }
                   />
@@ -166,7 +159,7 @@ export function SignUpForm() {
             />
             {errors.root ? <Alert color="error">{errors.root.message}</Alert> : null}
             <LoadingButton loading={isPending} disabled={isPending} type="submit" variant="contained">
-              Create account
+              הירשם
             </LoadingButton>
           </Stack>
         </form>

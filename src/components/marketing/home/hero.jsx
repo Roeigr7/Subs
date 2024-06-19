@@ -67,7 +67,6 @@ export function Hero() {
               סאבספארק
             </Typography>
           </Stack>
-
           <Stack direction="row" spacing={1} sx={{ alignItems: 'center', justifyContent: 'center ' }}></Stack>
         </Stack>
       </Container>

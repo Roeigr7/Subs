@@ -1,13 +1,8 @@
 // @ts-nocheck
-import React, { useContext, useEffect, useState } from "react";
-import {
-  createUserWithEmailAndPassword,
-  onAuthStateChanged,
-  signInWithEmailAndPassword,
-  signOut,
-} from "firebase/auth";
+import React, { useContext, useEffect, useState } from 'react';
+import { createUserWithEmailAndPassword, onAuthStateChanged, signInWithEmailAndPassword, signOut } from 'firebase/auth';
 
-import { auth } from "../firebase";
+import { auth } from '../firebase';
 
 const AuthContext = React.createContext(null);
 
@@ -21,6 +16,9 @@ export function AuthProvider({ children }) {
   }
   function login(email, password) {
     return signInWithEmailAndPassword(auth, email, password);
+  }
+  function googleLogin(email, password) {
+    return signInWithPopup(auth, provider);
   }
   function logout() {
     return signOut(auth);
