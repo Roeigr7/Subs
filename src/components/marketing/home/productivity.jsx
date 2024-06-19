@@ -1,5 +1,3 @@
-'use client';
-
 import * as React from 'react';
 import Box from '@mui/material/Box';
 import Chip from '@mui/material/Chip';
@@ -13,6 +11,8 @@ import { DiamondsFour as DiamondsFourIcon } from '@phosphor-icons/react/dist/ssr
 import { Palette as PaletteIcon } from '@phosphor-icons/react/dist/ssr/Palette';
 import { Timer as TimerIcon } from '@phosphor-icons/react/dist/ssr/Timer';
 import { NoSsr } from 'components/core/no-ssr';
+
+('use client');
 
 export function Productivity() {
   const { colorScheme } = useColorScheme();
@@ -183,6 +183,7 @@ export function Productivity() {
                 </Box>
               </Box>
             </Grid>
+
             <Grid md={4} xs={12}>
               <Box
                 sx={{
@@ -210,7 +211,37 @@ export function Productivity() {
                 </Box>
               </Box>
             </Grid>
-            <Grid md={8} xs={12}>
+            <Grid md={4} xs={12}>
+              <Box
+                sx={{
+                  bgcolor: 'var(--mui-palette-background-level1)',
+                  border: '1px solid var(--mui-palette-divider)',
+                  borderRadius: '20px',
+                  overflow: 'hidden',
+                }}
+              >
+                <Stack spacing={2} sx={{ p: 4 }}>
+                  <Box>
+                    <Typography variant="h4" p={0} m={0} component={'h5'}>
+                      מסלול מתקדם
+                    </Typography>
+                    <Typography color="text.secondary" variant="body2">
+                      לעסקים קטנים ולקוחות פרטיים
+                    </Typography>
+                  </Box>
+                  <Typography color="primary" variant="h3" fontWeight={800}>
+                    20$
+                    <Typography component={'span'} color="text.secondary" variant="body2">
+                      /
+                    </Typography>
+                    <Typography component={'span'} color="text.secondary" variant="body2">
+                      חודש
+                    </Typography>
+                  </Typography>
+                </Stack>
+              </Box>
+            </Grid>
+            <Grid md={4} xs={12}>
               <Box
                 sx={{
                   bgcolor: 'var(--mui-palette-background-level1)',
@@ -221,24 +252,19 @@ export function Productivity() {
               >
                 <Stack spacing={2} sx={{ p: 4 }}>
                   <div>
-                    <Chip color="primary" icon={<TimerIcon />} label="Save time" variant="soft" />
+                    <Chip color="primary" icon={<PaletteIcon />} label="Themeable" variant="soft" />
                   </div>
-                  <Typography variant="h5">Built with the latest tech</Typography>
+                  <Typography variant="h5">Easy to customize</Typography>
                   <Typography color="text.secondary" variant="body2">
-                    Every template provides a thoughtfully structured project, offering a codebase that&apos;s not only
-                    productive but also a joy to work with.
+                    Tweak the theme in your editor for global style changes.
                   </Typography>
                 </Stack>
                 <Box sx={{ height: '300px', position: 'relative' }}>
-                  <NoSsr>
-                    <Box
-                      component="img"
-                      src={
-                        colorScheme === 'dark' ? '/assets/home-feature-4-dark.png' : '/assets/home-feature-4-light.png'
-                      }
-                      sx={{ bottom: 0, height: 'auto', left: 0, position: 'absolute', width: '100%' }}
-                    />
-                  </NoSsr>
+                  <Box
+                    component="img"
+                    src="/assets/home-feature-3.svg"
+                    sx={{ bottom: '-150px', height: '450px', right: 0, position: 'absolute', width: 'auto' }}
+                  />
                 </Box>
               </Box>
             </Grid>
