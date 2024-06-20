@@ -1,4 +1,3 @@
-import React from "react";
 import GetStarted from "components/cta/GetStarted";
 import FAQ from "components/faqs/SingleCol.js";
 import Features from "components/features/ThreeColWithSideImage.js";
@@ -15,10 +14,9 @@ import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import heroScreenshotImageSrc from "images/hero-screenshot-1.png";
 import macHeroScreenshotImageSrc from "images/hero-screenshot-2.png";
 import prototypeIllustrationImageSrc from "images/prototype-illustration.svg";
-import { css } from "styled-components/macro"; //eslint-disable-line
 import tw from "twin.macro";
 
-export default () => {
+const HomePage = () => {
   const Subheading = tw.span`uppercase tracking-widest font-bold text-primary-500`;
   const HighlightedText = tw.span`text-primary-500`;
 
@@ -202,3 +200,5 @@ export default () => {
     </AnimationRevealPage>
   );
 };
+
+export default HomePage;

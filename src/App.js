@@ -1,4 +1,3 @@
-import React from "react";
 // import RestaurantLandingPage from "demos/RestaurantLandingPage.js";
 // import ServiceLandingPage from "demos/ServiceLandingPage.js";
 // import HostingCloudLandingPage from "demos/HostingCloudLandingPage.js";
@@ -11,8 +10,8 @@ import React from "react";
 // import BlogIndexPage from "pages/BlogIndex.js";
 // import TermsOfServicePage from "pages/TermsOfService.js";
 // import PrivacyPolicyPage from "pages/PrivacyPolicy.js";
-import ComponentRenderer from "ComponentRenderer.js";
-import { AuthProvider } from "contexts/authContext";
+import GlobalStyles from "styles/GlobalStyles";
+
 /*
  * This is the entry point component of this project. You can change the below exported default App component to any of
  * the prebuilt landing page components by uncommenting their import and export lines respectively.
@@ -84,35 +83,13 @@ import { AuthProvider } from "contexts/authContext";
 // import EventLandingPage from "demos/EventLandingPage.js";
 // import HotelTravelLandingPage from "demos/HotelTravelLandingPage.js";
 // import AgencyLandingPage from "demos/AgencyLandingPage.js";
-import SaaSProductLandingPage from "demos/SaaSProductLandingPage.js";
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
-import { css } from "styled-components/macro"; //eslint-disable-line
-import GlobalStyles from "styles/GlobalStyles";
-import ThankYouPage from "ThankYouPage.js";
-
 export default function App() {
   // If you want to disable the animation just use the disabled `prop` like below on your page's component
   // return <AnimationRevealPage disabled>xxxxxxxxxx</AnimationRevealPage>;
 
   return (
     <>
-      <AuthProvider>
-        <GlobalStyles />
-        <Router>
-          <Routes>
-            <Route
-              path="/components/:type/:subtype/:name"
-              element={<ComponentRenderer />}
-            />
-            <Route
-              path="/components/:type/:name"
-              element={<ComponentRenderer />}
-            />
-            <Route path="/thank-you" element={<ThankYouPage />} />
-            <Route path="/" element={<SaaSProductLandingPage />} />
-          </Routes>
-        </Router>
-      </AuthProvider>
+      <GlobalStyles />
     </>
   );
 }
@@ -120,7 +97,7 @@ export default function App() {
 // export default EventLandingPage;
 // export default HotelTravelLandingPage;
 // export default AgencyLandingPage;
-// export default SaaSProductLandingPage;
+// export default HomePage;
 // export default RestaurantLandingPage;
 // export default ServiceLandingPage;
 // export default HostingCloudLandingPage;

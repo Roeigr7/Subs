@@ -1,4 +1,5 @@
 import React from "react";
+import { components } from "ComponentRenderer.js";
 import { Container as ContainerBase } from "components/misc/Layouts";
 import { ReactComponent as LoginIcon } from "feather-icons/dist/icons/log-in.svg";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
@@ -37,7 +38,7 @@ const FormContainer = tw.div`
 const SocialButtonsContainer = tw.div`
   flex flex-col items-center
 `;
-const SocialButton = styled.a`
+const SocialButton = styled.button`
   ${tw`
     w-full max-w-xs font-semibold rounded-lg py-3 border text-gray-900 bg-gray-100 hocus:bg-gray-200 hocus:border-gray-400 flex items-center justify-center transition-all duration-300 focus:outline-none focus:shadow-outline text-sm mt-5 first:mt-0
   `}
@@ -97,7 +98,7 @@ const IllustrationImage = styled.div`
 `;
 
 const LoginPage = () => {
-  const { login, googleLogin } = useAuth();
+  const { login, googleSign } = useAuth();
   const [isPending, setIsPending] = React.useState(false);
   const navigate = useNavigate();
   const [error, setError] = React.useState(null);
@@ -108,20 +109,19 @@ const LoginPage = () => {
     {
       iconImageSrc: googleIconImageSrc,
       text: "התחבר עם גוגל",
-      url: "https://google.com",
     },
   ];
   const submitButtonText = "התחבר";
   const SubmitButtonIcon = LoginIcon;
   const forgotPasswordUrl = "#";
-  const signupUrl = "/components/innerPages/SignupPage";
+  const signupUrl = components.auth.SignupPage.url;
 
   const handleGoogleLogin = async () => {
     setIsPending(true);
     try {
       setIsPending(true);
       setError(null);
-      await googleLogin();
+      await googleSign();
       navigate("/");
     } catch (err) {
       setError("error");
@@ -155,11 +155,7 @@ const LoginPage = () => {
               <FormContainer>
                 <SocialButtonsContainer>
                   {socialButtons.map((socialButton, index) => (
-                    <SocialButton
-                      key={index}
-                      href={socialButton.url}
-                      onClick={handleGoogleLogin}
-                    >
+                    <SocialButton key={index} onClick={handleGoogleLogin}>
                       <span className="iconContainer">
                         <img
                           src={socialButton.iconImageSrc}

@@ -1,4 +1,3 @@
-import React from "react";
 import GridWithFeaturedPostBlog from "components/blogs/GridWithFeaturedPost.js";
 import PopularAndRecentPostsBlog from "components/blogs/PopularAndRecentBlogPosts.js";
 import ThreeColSimpleWithImageBlog from "components/blogs/ThreeColSimpleWithImage.js";
@@ -53,10 +52,8 @@ import TwoColumnWithImageAndProfilePictureReviewTestimonial from "components/tes
 import TwoColumnWithImageAndRatingTestimonial from "components/testimonials/TwoColumnWithImageAndRating.js";
 import AgencyLandingPage from "demos/AgencyLandingPage.js";
 import EventLandingPage from "demos/EventLandingPage.js";
+import Home from "demos/HomePage";
 import HostingCloudLandingPage from "demos/HostingCloudLandingPage.js";
-import HotelTravelLandingPage from "demos/HotelTravelLandingPage.js";
-import RestaurantLandingPage from "demos/RestaurantLandingPage.js";
-import SaaSProductLandingPage from "demos/SaaSProductLandingPage.js";
 import ServiceLandingPage from "demos/ServiceLandingPage.js";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import AboutUsPageImageSrc from "images/demo/AboutUsPage.jpeg";
@@ -64,20 +61,18 @@ import AgencyLandingPageImageSrc from "images/demo/AgencyLandingPage.jpeg";
 import BlogIndexPageImageSrc from "images/demo/BlogIndexPage.jpeg";
 import ContactUsPageImageSrc from "images/demo/ContactUsPage.jpeg";
 import EventLandingPageImageSrc from "images/demo/EventLandingPage.jpeg";
+import HomeImageSrc from "images/demo/Home.jpeg";
 import HostingCloudLandingPageImageSrc from "images/demo/HostingCloudLandingPage.jpeg";
-import HotelTravelLandingPageImageSrc from "images/demo/HotelTravelLandingPage.jpeg";
 import LoginPageImageSrc from "images/demo/LoginPage.jpeg";
 import PricingPageImageSrc from "images/demo/PricingPage.jpeg";
 import PrivacyPolicyPageImageSrc from "images/demo/PrivacyPolicyPage.jpeg";
-import RestaurantLandingPageImageSrc from "images/demo/RestaurantLandingPage.jpeg";
-import SaaSProductLandingPageImageSrc from "images/demo/SaaSProductLandingPage.jpeg";
 import ServiceLandingPageImageSrc from "images/demo/ServiceLandingPage.jpeg";
 import SignupPageImageSrc from "images/demo/SignupPage.jpeg";
 import TermsOfServicePageImageSrc from "images/demo/TermsOfServicePage.jpeg";
 import AboutUsPage from "pages/AboutUs.js";
 import BlogIndexPage from "pages/BlogIndex.js";
 import ContactUsPage from "pages/ContactUs.js";
-import LoginPage from "pages/Login.js";
+import LoginPage from "pages/Login";
 import PricingPage from "pages/Pricing.js";
 import PrivacyPolicyPage from "pages/PrivacyPolicy.js";
 import SignupPage from "pages/Signup.js";
@@ -86,10 +81,10 @@ import { useParams } from "react-router-dom";
 
 export const components = {
   landingPages: {
-    SaaSProductLandingPage: {
-      component: SaaSProductLandingPage,
-      imageSrc: SaaSProductLandingPageImageSrc,
-      url: "/components/landingPages/SaaSProductLandingPage",
+    HomePage: {
+      component: Home,
+      imageSrc: HomeImageSrc,
+      url: "/components/landingPages/Home",
     },
     ServiceLandingPage: {
       component: ServiceLandingPage,
@@ -112,20 +107,22 @@ export const components = {
       url: "/components/landingPages/HostingCloudLandingPage",
     },
   },
-
-  innerPages: {
+  auth: {
     LoginPage: {
       component: LoginPage,
       imageSrc: LoginPageImageSrc,
       scrollAnimationDisabled: true,
-      url: "/components/innerPages/LoginPage",
+      url: "/auth/login",
     },
     SignupPage: {
       component: SignupPage,
-      url: `/components/innerPages/SignupPage`,
+      url: `/auth/signup`,
       imageSrc: SignupPageImageSrc,
       scrollAnimationDisabled: true,
     },
+  },
+
+  innerPages: {
     PricingPage: {
       component: PricingPage,
       url: `/components/innerPages/PricingPage`,

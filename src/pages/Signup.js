@@ -6,7 +6,6 @@ import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import googleIconImageSrc from "images/google-icon.png";
 import logo from "images/logo.svg";
 import illustration from "images/signup-illustration.svg";
-import { navigate } from "react-router-dom";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import tw from "twin.macro";
@@ -23,7 +22,7 @@ const Heading = tw.h1`text-2xl xl:text-3xl font-extrabold`;
 const FormContainer = tw.div`w-full flex-1 mt-8`;
 
 const SocialButtonsContainer = tw.div`flex flex-col items-center`;
-const SocialButton = styled.a`
+const SocialButton = styled.button`
   ${tw`w-full max-w-xs font-semibold rounded-lg py-3 border text-gray-900 bg-gray-100 hocus:bg-gray-200 hocus:border-gray-400 flex items-center justify-center transition-all duration-300 focus:outline-none focus:shadow-outline text-sm mt-5 first:mt-0`}
   .iconContainer {
     ${tw`bg-white p-2 rounded-full`}
@@ -55,32 +54,33 @@ const IllustrationImage = styled.div`
   ${(props) => `background-image: url("${props.imageSrc}");`}
   ${tw`m-12 xl:m-16 w-full max-w-lg bg-contain bg-center bg-no-repeat`}
 `;
-const logoLinkUrl = "#";
+
 const illustrationImageSrc = illustration;
 const headingText = "הירשם לסאבס";
 const socialButtons = [
   {
     iconImageSrc: googleIconImageSrc,
     text: "הירשם עם גוגל",
-    url: "https://google.com",
   },
 ];
 const submitButtonText = "הירשם";
 const SubmitButtonIcon = SignUpIcon;
 const tosUrl = "#";
-const signInUrl = "/components/innerPages/LoginPage";
-const Signup = () => {
-  const { signup, googleLogin } = useAuth();
+const signInUrl = "components/auth/LoginPage";
+const SignupPage = () => {
+  const { signup, googleSign } = useAuth();
   const [isPending, setIsPending] = React.useState(false);
   const navigate = useNavigate();
   const [error, setError] = React.useState(null);
 
   const handleGoogleSignup = async () => {
+    console.log("wwww");
     setIsPending(true);
     try {
       setIsPending(true);
       setError(null);
-      await googleLogin();
+      await googleSign();
+      navigate("/");
     } catch (err) {
       setError("error");
       setIsPending(false);
@@ -110,7 +110,7 @@ const Signup = () => {
       <Container>
         <Content>
           <MainContainer>
-            <LogoLink href={logoLinkUrl}>
+            <LogoLink>
               <LogoImage src={logo} />
             </LogoLink>
             <MainContent>
@@ -118,11 +118,7 @@ const Signup = () => {
               <FormContainer>
                 <SocialButtonsContainer>
                   {socialButtons.map((socialButton, index) => (
-                    <SocialButton
-                      key={index}
-                      href={socialButton.url}
-                      onClick={handleGoogleSignup} // Attach onClick handler
-                    >
+                    <SocialButton key={index} onClick={handleGoogleSignup}>
                       <span className="iconContainer">
                         <img
                           src={socialButton.iconImageSrc}
@@ -180,4 +176,4 @@ const Signup = () => {
   );
 };
 
-export default Signup;
+export default SignupPage;

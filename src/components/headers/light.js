@@ -70,7 +70,7 @@ const Light = ({
       {currentUser && (
         <NavLink
           onClick={logout}
-          href={components.landingPages.SaaSProductLandingPage.url}
+          href={components.landingPages.HomePage.url}
           tw="lg:ml-12!"
         >
           התנתק
@@ -78,12 +78,12 @@ const Light = ({
       )}
       {!currentUser && (
         <>
-          <NavLink href={components.innerPages.LoginPage.url} tw="lg:ml-12!">
+          <NavLink href={components.auth.LoginPage.url} tw="lg:ml-12!">
             התחבר
           </NavLink>
           <PrimaryLink
             css={roundedHeaderButton && tw`rounded-full`}
-            href={components.innerPages.SignupPage.url}
+            href={components.auth.SignupPage.url}
           >
             הירשם
           </PrimaryLink>

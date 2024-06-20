@@ -1,13 +1,13 @@
-// @ts-nocheck
 import React, { useContext, useEffect, useState } from "react";
 import {
   createUserWithEmailAndPassword,
   onAuthStateChanged,
   signInWithEmailAndPassword,
+  signInWithPopup,
   signOut,
 } from "firebase/auth";
 
-import { auth } from "../firebase";
+import { auth, googleProvider } from "../firebase";
 
 const AuthContext = React.createContext(null);
 
@@ -19,6 +19,9 @@ export function AuthProvider({ children }) {
   console.log("ccoihiohio", currentUser);
   function signup(email, password) {
     return createUserWithEmailAndPassword(auth, email, password);
+  }
+  function googleSign() {
+    return signInWithPopup(auth, googleProvider);
   }
   function login(email, password) {
     return signInWithEmailAndPassword(auth, email, password);
@@ -41,6 +44,7 @@ export function AuthProvider({ children }) {
   const value = {
     currentUser,
     signup,
+    googleSign,
     login,
     logout,
   };
