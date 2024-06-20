@@ -1,5 +1,5 @@
 import React from "react";
-import { components } from "ComponentRenderer";
+import { routes } from "ComponentRenderer";
 import ProtectedRoute from "components/routes/ProtectedRoute";
 import PublicRoute from "components/routes/PublicRoute";
 import { AuthProvider } from "contexts/authContext";
@@ -24,7 +24,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: components.auth.LoginPage.url,
+    path: routes.auth.loginPage.url,
     element: (
       <PublicRoute>
         <LoginPage />{" "}
@@ -32,7 +32,7 @@ const router = createBrowserRouter([
     ),
   },
   {
-    path: components.auth.SignupPage.url,
+    path: routes.auth.signupPage.url,
     element: (
       <PublicRoute>
         <SignupPage />

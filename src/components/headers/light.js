@@ -1,5 +1,4 @@
-import React from "react";
-import { components } from "ComponentRenderer.js";
+import { routes } from "ComponentRenderer.js";
 import { useAuth } from "contexts/authContext.jsx";
 import { ReactComponent as MenuIcon } from "feather-icons/dist/icons/menu.svg";
 import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
@@ -17,6 +16,9 @@ const Header = tw.header`
 
 export const NavLinks = tw.div`inline-block`;
 
+/* hocus: stands for "on hover or focus"
+ * hocus:bg-primary-700 will apply the bg-primary-700 class on hover or focus
+ */
 export const NavLink = tw.a`
   text-lg my-2 lg:text-sm lg:mx-6 lg:my-0
   font-semibold tracking-wide transition duration-300
@@ -53,37 +55,46 @@ export const DesktopNavLinks = tw.nav`
   hidden lg:flex flex-1 justify-between items-center
 `;
 
-const Light = ({
+export default ({
   roundedHeaderButton = false,
   logoLink,
   links,
   className,
   collapseBreakpointClass = "lg",
 }) => {
+  /*
+   * This header component accepts an optionals "links" prop that specifies the links to render in the navbar.
+   * This links props should be an array of "NavLinks" components which is exported from this file.
+   * Each "NavLinks" component can contain any amount of "NavLink" component, also exported from this file.
+   * This allows this Header to be multi column.
+   * So If you pass only a single item in the array with only one NavLinks component as root, you will get 2 column header.
+   * Left part will be LogoLink, and the right part will be the the NavLinks component you
+   * supplied.
+   * Similarly if you pass 2 items in the links array, then you will get 3 columns, the left will be "LogoLink", the center will be the first "NavLinks" component in the array and the right will be the second "NavLinks" component in the links array.
+   * You can also choose to directly modify the links here by not passing any links from the parent component and
+   * changing the defaultLinks variable below below.
+   * If you manipulate links here, all the styling on the links is already done for you. If you pass links yourself though, you are responsible for styling the links or use the helper styled components that are defined here (NavLink)
+   */
   const { currentUser, logout } = useAuth();
   const defaultLinks = [
     <NavLinks key={1}>
-      <NavLink href={components.innerPages.AboutUsPage.url}>מי אנחנו</NavLink>
-      <NavLink href={components.innerPages.BlogIndexPage.url}>בלוג</NavLink>
-      <NavLink href={components.innerPages.PricingPage.url}>מנויים</NavLink>
-      <NavLink href={components.innerPages.ContactUsPage.url}>צור קשר</NavLink>
+      <NavLink href={routes.innerPages.AboutUsPage.url}>מי אנחנו</NavLink>
+      <NavLink href={routes.innerPages.BlogIndexPage.url}>בלוג</NavLink>
+      <NavLink href={routes.innerPages.PricingPage.url}>מנויים</NavLink>
+      <NavLink href={routes.innerPages.ContactUsPage.url}>צור קשר</NavLink>
       {currentUser && (
-        <NavLink
-          onClick={logout}
-          href={components.landingPages.HomePage.url}
-          tw="lg:ml-12!"
-        >
+        <NavLink onClick={logout} href={routes.homePage.url} tw="lg:ml-12!">
           התנתק
         </NavLink>
       )}
       {!currentUser && (
         <>
-          <NavLink href={components.auth.LoginPage.url} tw="lg:ml-12!">
+          <NavLink href={routes.auth.loginPage.url} tw="lg:ml-12!">
             התחבר
           </NavLink>
           <PrimaryLink
             css={roundedHeaderButton && tw`rounded-full`}
-            href={components.auth.SignupPage.url}
+            href={routes.auth.signupPage.url}
           >
             הירשם
           </PrimaryLink>
@@ -97,7 +108,7 @@ const Light = ({
     collapseBreakPointCssMap[collapseBreakpointClass];
 
   const defaultLogoLink = (
-    <LogoLink href="#">
+    <LogoLink href={routes.homePage.url}>
       <img src={logo} alt="logo" />
       Treact
     </LogoLink>
@@ -139,6 +150,12 @@ const Light = ({
   );
 };
 
+/* The below code is for generating dynamic break points for navbar.
+ * Using this you can specify if you want to switch
+ * to the toggleable mobile navbar at "sm", "md" or "lg" or "xl" above using the collapseBreakpointClass prop
+ * Its written like this because we are using macros and we can not insert dynamic variables in macros
+ */
+
 const collapseBreakPointCssMap = {
   sm: {
     mobileNavLinks: tw`sm:hidden`,
@@ -161,5 +178,3 @@ const collapseBreakPointCssMap = {
     mobileNavLinksContainer: tw`lg:hidden`,
   },
 };
-
-export default Light;

@@ -50,23 +50,15 @@ import ThreeColumnWithProfileImageTestimonial from "components/testimonials/Thre
 import TwoColumnWithImageTestimonial from "components/testimonials/TwoColumnWithImage.js";
 import TwoColumnWithImageAndProfilePictureReviewTestimonial from "components/testimonials/TwoColumnWithImageAndProfilePictureReview.js";
 import TwoColumnWithImageAndRatingTestimonial from "components/testimonials/TwoColumnWithImageAndRating.js";
-import AgencyLandingPage from "demos/AgencyLandingPage.js";
-import EventLandingPage from "demos/EventLandingPage.js";
 import Home from "demos/HomePage";
-import HostingCloudLandingPage from "demos/HostingCloudLandingPage.js";
-import ServiceLandingPage from "demos/ServiceLandingPage.js";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 import AboutUsPageImageSrc from "images/demo/AboutUsPage.jpeg";
-import AgencyLandingPageImageSrc from "images/demo/AgencyLandingPage.jpeg";
 import BlogIndexPageImageSrc from "images/demo/BlogIndexPage.jpeg";
 import ContactUsPageImageSrc from "images/demo/ContactUsPage.jpeg";
-import EventLandingPageImageSrc from "images/demo/EventLandingPage.jpeg";
 import HomeImageSrc from "images/demo/Home.jpeg";
-import HostingCloudLandingPageImageSrc from "images/demo/HostingCloudLandingPage.jpeg";
 import LoginPageImageSrc from "images/demo/LoginPage.jpeg";
 import PricingPageImageSrc from "images/demo/PricingPage.jpeg";
 import PrivacyPolicyPageImageSrc from "images/demo/PrivacyPolicyPage.jpeg";
-import ServiceLandingPageImageSrc from "images/demo/ServiceLandingPage.jpeg";
 import SignupPageImageSrc from "images/demo/SignupPage.jpeg";
 import TermsOfServicePageImageSrc from "images/demo/TermsOfServicePage.jpeg";
 import AboutUsPage from "pages/AboutUs.js";
@@ -79,42 +71,20 @@ import SignupPage from "pages/Signup.js";
 import TermsOfServicePage from "pages/TermsOfService.js";
 import { useParams } from "react-router-dom";
 
-export const components = {
-  landingPages: {
-    HomePage: {
-      component: Home,
-      imageSrc: HomeImageSrc,
-      url: "/components/landingPages/Home",
-    },
-    ServiceLandingPage: {
-      component: ServiceLandingPage,
-      imageSrc: ServiceLandingPageImageSrc,
-      url: "/components/landingPages/ServiceLandingPage",
-    },
-    EventLandingPage: {
-      component: EventLandingPage,
-      imageSrc: EventLandingPageImageSrc,
-      url: "/components/landingPages/EventLandingPage",
-    },
-    AgencyLandingPage: {
-      component: AgencyLandingPage,
-      imageSrc: AgencyLandingPageImageSrc,
-      url: "/components/landingPages/AgencyLandingPage",
-    },
-    HostingCloudLandingPage: {
-      component: HostingCloudLandingPage,
-      imageSrc: HostingCloudLandingPageImageSrc,
-      url: "/components/landingPages/HostingCloudLandingPage",
-    },
+export const routes = {
+  homePage: {
+    component: Home,
+    imageSrc: HomeImageSrc,
+    url: "/",
   },
   auth: {
-    LoginPage: {
+    loginPage: {
       component: LoginPage,
       imageSrc: LoginPageImageSrc,
       scrollAnimationDisabled: true,
       url: "/auth/login",
     },
-    SignupPage: {
+    signupPage: {
       component: SignupPage,
       url: `/auth/signup`,
       imageSrc: SignupPageImageSrc,
@@ -482,13 +452,13 @@ export default () => {
   try {
     let Component = null;
     if (type === "blocks" && subtype) {
-      Component = components[type][subtype]["elements"][name].component;
+      Component = routes[type][subtype]["elements"][name].component;
       return (
         <AnimationRevealPage disabled>
           <Component />
         </AnimationRevealPage>
       );
-    } else Component = components[type][name].component;
+    } else Component = routes[type][name].component;
 
     if (Component) return <Component />;
 

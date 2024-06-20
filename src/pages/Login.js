@@ -1,5 +1,5 @@
 import React from "react";
-import { components } from "ComponentRenderer.js";
+import { routes } from "ComponentRenderer.js";
 import { Container as ContainerBase } from "components/misc/Layouts";
 import { ReactComponent as LoginIcon } from "feather-icons/dist/icons/log-in.svg";
 import AnimationRevealPage from "helpers/AnimationRevealPage.js";
@@ -114,7 +114,7 @@ const LoginPage = () => {
   const submitButtonText = "התחבר";
   const SubmitButtonIcon = LoginIcon;
   const forgotPasswordUrl = "#";
-  const signupUrl = components.auth.SignupPage.url;
+  const signupUrl = routes.auth.signupPage.url;
 
   const handleGoogleLogin = async () => {
     setIsPending(true);
