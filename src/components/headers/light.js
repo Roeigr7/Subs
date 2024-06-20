@@ -1,9 +1,11 @@
+import React from "react";
 import { routes } from "ComponentRenderer.js";
 import { useAuth } from "contexts/authContext.jsx";
 import { ReactComponent as MenuIcon } from "feather-icons/dist/icons/menu.svg";
 import { ReactComponent as CloseIcon } from "feather-icons/dist/icons/x.svg";
 import { motion } from "framer-motion";
 import styled from "styled-components";
+import { css } from "styled-components/macro"; //eslint-disable-line
 import tw from "twin.macro";
 
 import useAnimatedNavToggler from "../../helpers/useAnimatedNavToggler.js";
@@ -62,6 +64,7 @@ export default ({
   className,
   collapseBreakpointClass = "lg",
 }) => {
+  const { logout, currentUser } = useAuth();
   /*
    * This header component accepts an optionals "links" prop that specifies the links to render in the navbar.
    * This links props should be an array of "NavLinks" components which is exported from this file.
@@ -75,12 +78,20 @@ export default ({
    * changing the defaultLinks variable below below.
    * If you manipulate links here, all the styling on the links is already done for you. If you pass links yourself though, you are responsible for styling the links or use the helper styled components that are defined here (NavLink)
    */
-  const { currentUser, logout } = useAuth();
   const defaultLinks = [
     <NavLinks key={1}>
-      <NavLink href={routes.innerPages.AboutUsPage.url}>מי אנחנו</NavLink>
-      <NavLink href={routes.innerPages.BlogIndexPage.url}>בלוג</NavLink>
-      <NavLink href={routes.innerPages.PricingPage.url}>מנויים</NavLink>
+      {!currentUser && (
+        <>
+          <NavLink href={routes.innerPages.AboutUsPage.url}>פיצ'רים</NavLink>
+          <NavLink href={routes.innerPages.BlogIndexPage.url}>לקוחות</NavLink>
+        </>
+      )}
+      {currentUser && (
+        <>
+          <NavLink href={routes.innerPages.AboutUsPage.url}>בית</NavLink>
+          <NavLink href={routes.innerPages.BlogIndexPage.url}>חבילות</NavLink>
+        </>
+      )}
       <NavLink href={routes.innerPages.ContactUsPage.url}>צור קשר</NavLink>
       {currentUser && (
         <NavLink onClick={logout} href={routes.homePage.url} tw="lg:ml-12!">
@@ -108,7 +119,7 @@ export default ({
     collapseBreakPointCssMap[collapseBreakpointClass];
 
   const defaultLogoLink = (
-    <LogoLink href={routes.homePage.url}>
+    <LogoLink href="/">
       <img src={logo} alt="logo" />
       Treact
     </LogoLink>
