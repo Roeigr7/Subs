@@ -7,6 +7,7 @@ const ProtectedRoute = ({ children }) => {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("cc", currentUser);
     if (currentUser === null) {
       navigate("/", { replace: true });
     }

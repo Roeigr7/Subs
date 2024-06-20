@@ -82,17 +82,17 @@ export default ({
     <NavLinks key={1}>
       {!currentUser && (
         <>
-          <NavLink href={routes.innerPages.AboutUsPage.url}>פיצ'רים</NavLink>
-          <NavLink href={routes.innerPages.BlogIndexPage.url}>לקוחות</NavLink>
+          <NavLink href={routes.userPages.AboutUsPage.url}>פיצ'רים</NavLink>
+          <NavLink href={routes.userPages.BlogIndexPage.url}>לקוחות</NavLink>
         </>
       )}
       {currentUser && (
         <>
-          <NavLink href={routes.innerPages.AboutUsPage.url}>בית</NavLink>
-          <NavLink href={routes.innerPages.BlogIndexPage.url}>חבילות</NavLink>
+          <NavLink href={routes.userPages.AboutUsPage.url}>בית</NavLink>
+          <NavLink href={routes.userPages.pricingPage.url}>חבילות</NavLink>
         </>
       )}
-      <NavLink href={routes.innerPages.ContactUsPage.url}>צור קשר</NavLink>
+      <NavLink href={routes.userPages.ContactUsPage.url}>צור קשר</NavLink>
       {currentUser && (
         <NavLink onClick={logout} href={routes.homePage.url} tw="lg:ml-12!">
           התנתק

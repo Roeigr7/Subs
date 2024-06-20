@@ -91,36 +91,35 @@ export const routes = {
       scrollAnimationDisabled: true,
     },
   },
-
-  innerPages: {
-    PricingPage: {
+  userPages: {
+    pricingPage: {
       component: PricingPage,
-      url: `/components/innerPages/PricingPage`,
+      url: `/userPages/pricingPage`,
       imageSrc: PricingPageImageSrc,
     },
     AboutUsPage: {
       component: AboutUsPage,
-      url: `/components/innerPages/AboutUsPage`,
+      url: `/userPages/AboutUsPage`,
       imageSrc: AboutUsPageImageSrc,
     },
     ContactUsPage: {
       component: ContactUsPage,
-      url: `/components/innerPages/ContactUsPage`,
+      url: `/userPages/ContactUsPage`,
       imageSrc: ContactUsPageImageSrc,
     },
     BlogIndexPage: {
       component: BlogIndexPage,
-      url: `/components/innerPages/BlogIndexPage`,
+      url: `/userPages/BlogIndexPage`,
       imageSrc: BlogIndexPageImageSrc,
     },
     TermsOfServicePage: {
       component: TermsOfServicePage,
-      url: `/components/innerPages/TermsOfServicePage`,
+      url: `/userPages/TermsOfServicePage`,
       imageSrc: TermsOfServicePageImageSrc,
     },
     PrivacyPolicyPage: {
       component: PrivacyPolicyPage,
-      url: `/components/innerPages/PrivacyPolicyPage`,
+      url: `/userPages/PrivacyPolicyPage`,
       imageSrc: PrivacyPolicyPageImageSrc,
     },
   },

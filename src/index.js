@@ -5,6 +5,7 @@ import PublicRoute from "components/routes/PublicRoute";
 import { AuthProvider } from "contexts/authContext";
 import HomePage from "demos/HomePage";
 import LoginPage from "pages/Login";
+import PricingPage from "pages/Pricing";
 import SignupPage from "pages/Signup";
 import { createRoot } from "react-dom/client";
 import Modal from "react-modal";
@@ -27,7 +28,7 @@ const router = createBrowserRouter([
     path: routes.auth.loginPage.url,
     element: (
       <PublicRoute>
-        <LoginPage />{" "}
+        <LoginPage />
       </PublicRoute>
     ),
   },
@@ -37,6 +38,14 @@ const router = createBrowserRouter([
       <PublicRoute>
         <SignupPage />
       </PublicRoute>
+    ),
+  },
+  {
+    path: routes.userPages.pricingPage.url,
+    element: (
+      <ProtectedRoute>
+        <PricingPage />
+      </ProtectedRoute>
     ),
   },
 ]);

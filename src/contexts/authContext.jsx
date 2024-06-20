@@ -16,7 +16,7 @@ export function useAuth() {
 }
 export function AuthProvider({ children }) {
   const [currentUser, setCurrentUser] = useState(null);
-  console.log("ccoihiohio", currentUser);
+  const [loading, setLoading] = useState(true);
   function signup(email, password) {
     return createUserWithEmailAndPassword(auth, email, password);
   }
@@ -38,6 +38,7 @@ export function AuthProvider({ children }) {
       } else {
         setCurrentUser(null);
       }
+      setLoading(false);
     });
     return unsubscribe;
   }, []);
@@ -48,5 +49,9 @@ export function AuthProvider({ children }) {
     login,
     logout,
   };
-  return <AuthContext.Provider value={value}>{children}</AuthContext.Provider>;
+  return (
+    <AuthContext.Provider value={value}>
+      {!loading && children}
+    </AuthContext.Provider>
+  );
 }
