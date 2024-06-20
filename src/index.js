@@ -1,27 +1,10 @@
-import * as React from 'react';
-import { ScrollRestoration } from 'components/core/scroll-restoration';
+import React from "react";
 import { createRoot } from 'react-dom/client';
-import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
-import { Root } from 'root';
-import { routes } from 'routes';
+import App from "./App";
+import Modal from "react-modal";
 
-const root = createRoot(document.getElementById('root'));
+Modal.setAppElement("#root");
 
-const router = createBrowserRouter([
-  {
-    path: '/',
-    element: (
-      <Root>
-        <ScrollRestoration />
-        <Outlet />
-      </Root>
-    ),
-    children: [...routes],
-  },
-]);
-
-root.render(
-  <React.StrictMode>
-    <RouterProvider router={router} />
-  </React.StrictMode>
-);
+const container = document.getElementById('root');
+const root = createRoot(container);
+root.render(<App />);
