@@ -1,11 +1,11 @@
 import React from "react";
-import AnimationRevealPage from "helpers/AnimationRevealPage.js";
-import Hero from "components/hero/BackgroundAsImageWithCenteredContent.js";
-import Features from "components/features/VerticalWithAlternateImageAndText.js";
 import Blog from "components/blogs/ThreeColSimpleWithImage.js";
-import Testimonial from "components/testimonials/TwoColumnWithImage.js";
-import ContactUsForm from "components/forms/SimpleContactUs.js";
+import Features from "components/features/ThreeColCenteredStatsPrimaryBackground";
 import Footer from "components/footers/SimpleFiveColumn.js";
+import ContactUsForm from "components/forms/SimpleContactUs.js";
+import Hero from "components/hero/BackgroundAsImage";
+import Testimonial from "components/testimonials/TwoColumnWithImage.js";
+import AnimationRevealPage from "helpers/AnimationRevealPage.js";
 
 export default () => (
   <AnimationRevealPage>

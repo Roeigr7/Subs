@@ -35,13 +35,7 @@ import SimpleContactUsForm from "components/forms/SimpleContactUs.js";
 import SimpleSubscribeNewsletterForm from "components/forms/SimpleSubscribeNewsletter.js";
 import TwoColContactUsForm from "components/forms/TwoColContactUsWithIllustration.js";
 import TwoColContactUsFullForm from "components/forms/TwoColContactUsWithIllustrationFullForm.js";
-import BackgroundAsImageHero from "components/hero/BackgroundAsImage.js";
 import BackgroundAsImageWithCenteredContentHero from "components/hero/BackgroundAsImageWithCenteredContent.js";
-import FullWidthWithImageHero from "components/hero/FullWidthWithImage.js";
-import FeaturesAndTestimonialHero from "components/hero/TwoColumnWithFeaturesAndTestimonial.js";
-import IllustrationAndInputHero from "components/hero/TwoColumnWithInput.js";
-import IllustrationAndPrimaryBackgroundHero from "components/hero/TwoColumnWithPrimaryBackground.js";
-import IllustrationAndVideoHero from "components/hero/TwoColumnWithVideo.js";
 import ThreePlansPricing from "components/pricing/ThreePlans.js";
 import ThreePlansWithHalfPrimaryBackgroundPricing from "components/pricing/ThreePlansWithHalfPrimaryBackground.js";
 import TwoPlansWithDurationSwitcherPricing from "components/pricing/TwoPlansWithDurationSwitcher.js";
@@ -128,40 +122,10 @@ export const routes = {
     Hero: {
       type: "Hero Section",
       elements: {
-        BackgroundAsImage: {
-          name: "With Background Image",
-          component: BackgroundAsImageHero,
-          url: "/components/blocks/Hero/BackgroundAsImage",
-        },
-        IllustrationAndInput: {
-          name: "With Image Illustration and Input",
-          component: IllustrationAndInputHero,
-          url: "/components/blocks/Hero/IllustrationAndInput",
-        },
-        IllustrationAndVideo: {
-          name: "With Image Illustration and Video",
-          component: IllustrationAndVideoHero,
-          url: "/components/blocks/Hero/IllustrationAndVideo",
-        },
-        FeaturesAndTestimonial: {
-          name: "With Features And Customer Testimonial",
-          component: FeaturesAndTestimonialHero,
-          url: "/components/blocks/Hero/FeaturesAndTestimonial",
-        },
-        FullWidthWithImage: {
-          name: "Full Width With Image",
-          component: FullWidthWithImageHero,
-          url: "/components/blocks/Hero/FullWidthWithImage",
-        },
         BackgroundAsImageWithCenteredContent: {
           name: "Full Width Background Image with centered content",
           component: BackgroundAsImageWithCenteredContentHero,
           url: "/components/blocks/Hero/BackgroundAsImageWithCenteredContent",
-        },
-        IllustrationAndPrimaryBackground: {
-          name: "Primary Background With Illustration",
-          component: IllustrationAndPrimaryBackgroundHero,
-          url: "/components/blocks/Hero/IllustrationAndPrimaryBackground",
         },
       },
     },

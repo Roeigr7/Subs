@@ -88,7 +88,7 @@ export default ({
       )}
       {currentUser && (
         <>
-          <NavLink href={routes.userPages.AboutUsPage.url}>בית</NavLink>
+          <NavLink href={routes.homePage.url}>בית</NavLink>
           <NavLink href={routes.userPages.pricingPage.url}>חבילות</NavLink>
         </>
       )}

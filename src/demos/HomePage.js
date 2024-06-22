@@ -5,7 +5,7 @@ import MainFeature from "components/features/TwoColWithButton.js";
 import FeatureWithSteps from "components/features/TwoColWithSteps.js";
 import MainFeature2 from "components/features/TwoColWithTwoHorizontalFeaturesAndButton.js";
 import Footer from "components/footers/FiveColumnWithBackground.js";
-import Hero from "components/hero/TwoColumnWithInput.js";
+import Hero from "components/hero/BackgroundAsImageWithCenteredContent";
 import Pricing from "components/pricing/ThreePlans.js";
 import Testimonial from "components/testimonials/TwoColumnWithImageAndRating.js";
 import { ReactComponent as BriefcaseIcon } from "feather-icons/dist/icons/briefcase.svg";
